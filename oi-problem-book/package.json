@@ -1,0 +1,24 @@
+{
+  "name": "oi-problem-book",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "个人 OI 刷题记录与代码展示系统（纯本地 JSON，无后端）",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
+    "element-plus": "^2.9.3",
+    "highlight.js": "^11.11.1",
+    "markdown-it": "^14.1.0",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "vite": "^6.0.7"
+  }
+}

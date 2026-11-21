@@ -1,0 +1,109 @@
+:root {
+  --page-bg: #f5f7fa;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', 'Segoe UI', Arial, sans-serif;
+  background: var(--page-bg);
+  color: #303133;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+/* Markdown 渲染的通用美化（详情页 / 编辑页预览共用） */
+.md-body {
+  line-height: 1.75;
+  word-break: break-word;
+}
+
+.md-body h1,
+.md-body h2,
+.md-body h3 {
+  margin-top: 1.4em;
+  margin-bottom: 0.6em;
+  border-bottom: 1px solid #ebeef5;
+  padding-bottom: 0.3em;
+}
+
+.md-body h2 {
+  font-size: 1.3rem;
+}
+
+.md-body h3 {
+  font-size: 1.1rem;
+  border-bottom: none;
+}
+
+.md-body p {
+  margin: 0.7em 0;
+}
+
+.md-body ul,
+.md-body ol {
+  padding-left: 1.6em;
+  margin: 0.6em 0;
+}
+
+.md-body li {
+  margin: 0.25em 0;
+}
+
+.md-body blockquote {
+  margin: 0.8em 0;
+  padding: 0.4em 1em;
+  color: #6b7280;
+  border-left: 4px solid #409eff;
+  background: #ecf5ff;
+  border-radius: 0 6px 6px 0;
+}
+
+.md-body code:not(.hljs) {
+  background: #eff1f3;
+  color: #d6320c;
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
+  font-family: 'JetBrains Mono', Consolas, Monaco, monospace;
+}
+
+.md-body pre {
+  border-radius: 8px;
+  overflow: auto;
+}
+
+.md-body pre code.hljs {
+  padding: 14px 16px;
+  font-size: 13px;
+  line-height: 1.6;
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', Consolas, Monaco, monospace;
+}
+
+.md-body table {
+  border-collapse: collapse;
+  margin: 0.8em 0;
+}
+
+.md-body th,
+.md-body td {
+  border: 1px solid #dcdfe6;
+  padding: 6px 12px;
+}
+
+.md-body th {
+  background: #f5f7fa;
+}
+
+.md-body img {
+  max-width: 100%;
+}
