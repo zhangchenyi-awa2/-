@@ -1,0 +1,22 @@
+[
+  {
+    "id": "P3372",
+    "title": "【模板】线段树 1",
+    "source": "洛谷",
+    "difficulty": "普及+/提高",
+    "tags": ["线段树", "数据结构", "模板题"],
+    "status": "AC",
+    "code": "#include <bits/stdc++.h>\nusing namespace std;\ntypedef long long ll;\nconst int N = 1e5 + 10;\n\nint n, m, a[N];\n\nstruct Node {\n    ll sum, lazy;\n} tr[N * 4];\n\nvoid pushup(int u) {\n    tr[u].sum = tr[u << 1].sum + tr[u << 1 | 1].sum;\n}\n\nvoid pushdown(int u, int lmid, int rmid) {\n    if (tr[u].lazy) {\n        tr[u << 1].sum += tr[u].lazy * lmid;\n        tr[u << 1 | 1].sum += tr[u].lazy * rmid;\n        tr[u << 1].lazy += tr[u].lazy;\n        tr[u << 1 | 1].lazy += tr[u].lazy;\n        tr[u].lazy = 0;\n    }\n}\n\nvoid build(int u, int l, int r) {\n    if (l == r) {\n        tr[u] = {a[l], 0};\n        return;\n    }\n    int mid = l + r >> 1;\n    build(u << 1, l, mid);\n    build(u << 1 | 1, mid + 1, r);\n    pushup(u);\n}\n\nvoid modify(int u, int l, int r, int x, int y, int k) {\n    if (x <= l && r <= y) {\n        tr[u].sum += (ll)(r - l + 1) * k;\n        tr[u].lazy += k;\n        return;\n    }\n    int mid = l + r >> 1;\n    pushdown(u, mid - l + 1, r - mid);\n    if (x <= mid) modify(u << 1, l, mid, x, y, k);\n    if (y > mid) modify(u << 1 | 1, mid + 1, r, x, y, k);\n    pushup(u);\n}\n\nll query(int u, int l, int r, int x, int y) {\n    if (x <= l && r <= y) return tr[u].sum;\n    int mid = l + r >> 1;\n    pushdown(u, mid - l + 1, r - mid);\n    ll res = 0;\n    if (x <= mid) res += query(u << 1, l, mid, x, y);\n    if (y > mid) res += query(u << 1 | 1, mid + 1, r, x, y);\n    return res;\n}\n\nint main() {\n    scanf(\"%d%d\", &n, &m);\n    for (int i = 1; i <= n; i++) scanf(\"%d\", &a[i]);\n    build(1, 1, n);\n    while (m--) {\n        int op, x, y;\n        scanf(\"%d%d%d\", &op, &x, &y);\n        if (op == 1) {\n            int k;\n            scanf(\"%d\", &k);\n            modify(1, 1, n, x, y, k);\n        } else {\n            printf(\"%lld\\n\", query(1, 1, n, x, y));\n        }\n    }\n    return 0;\n}\n",
+    "notes": "## 线段树 1（区间加 + 区间求和）\n\n### 思路\n标准的**懒标记（lazy tag）**线段树模板：\n\n- `modify`：区间加。若当前区间被完全覆盖，直接 `sum += len * k` 并累加 `lazy`；否则先 `pushdown` 再递归。\n- `query`：区间求和。完全覆盖直接返回 `sum`，否则 `pushdown` 后合并左右答案。\n\n### 踩坑记录 ⚠️\n1. **`pushdown` 必须传区间长度**：下传标记时，子节点的 `sum` 增量是 `lazy * 子区间长度`，第一次写的时候漏乘长度，样例就挂了。\n2. **开 `long long`**：区间和会爆 `int`，`sum`、`lazy`、答案输出格式 `%lld` 都要注意。\n3. 数组要开到 `4n`，`2n` 在某些构造下会 RE。\n\n### 对拍情况\n- 与暴力 `O(nm)` 前缀和模拟对拍了 **500 组**随机数据（`n,m<=100`，权值 `±1e9`），无 WA。\n- 生成器核心：`rand() % 2000000001 - 1000000000` 造带权操作。\n\n### 复杂度\n$O((n+m)\\log n)$，空间 $O(n)$。\n\n> 复习提示：下次可以先默写 `pushdown`，这是这道题唯一的难点。"
+  },
+  {
+    "id": "1A",
+    "title": "Theatre Square",
+    "source": "Codeforces",
+    "difficulty": "1000",
+    "tags": ["数学", "模拟", "水题"],
+    "status": "AC",
+    "code": "#include <bits/stdc++.h>\nusing namespace std;\ntypedef long long ll;\n\nint main() {\n    ll n, m, a;\n    scanf(\"%lld%lld%lld\", &n, &m, &a);\n    printf(\"%lld\\n\", ((n + a - 1) / a) * ((m + a - 1) / a));\n    return 0;\n}\n",
+    "notes": "## CF 1A - Theatre Square\n\n向上取整的经典入门题：答案是 $\\lceil n/a \\rceil \\times \\lceil m/a \\rceil$。\n\nC++ 整数向上取整写法：`(x + a - 1) / a`。\n\n**坑点**：`n*m` 最大到 $10^9 \\times 10^9$，必须用 `long long`，否则会溢出 WA。"
+  }
+]
